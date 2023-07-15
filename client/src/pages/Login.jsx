@@ -63,7 +63,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link} from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTwitterSquare, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faUserCircle ,faUser, faLock, faEnvelope} from "@fortawesome/free-solid-svg-icons";
+
 import '../pages/styles/login.css'
 
 function Login() {
@@ -96,7 +100,10 @@ function Login() {
       <div className="form-box">
         <div className="header-form">
           <h4 className="text-primary text-center">
-            <i className="fa fa-user-circle" style={{ fontSize: "110px" }}></i>
+            <FontAwesomeIcon
+              icon={faUserCircle}
+              style={{ fontSize: "110px" }}
+            />
           </h4>
           <div className="image"></div>
         </div>
@@ -105,7 +112,7 @@ function Login() {
             <div className="input-group mb-3">
               <div className="input-group-prepend">
                 <span className="input-group-text">
-                  <i className="fa fa-user"></i>
+                  <FontAwesomeIcon icon={faEnvelope} />
                 </span>
               </div>
               <input
@@ -121,7 +128,7 @@ function Login() {
             <div className="input-group mb-3">
               <div className="input-group-prepend">
                 <span className="input-group-text">
-                  <i className="fa fa-lock"></i>
+                  <FontAwesomeIcon icon={faLock} />
                 </span>
               </div>
               <input
@@ -139,7 +146,7 @@ function Login() {
             </button>
             <div className="message">
               <div>
-                <input type="checkbox" /> Remember ME
+                <Link to="/register">Create Account</Link>
               </div>
               <div>
                 <a href="#">Forgot your password</a>
@@ -148,13 +155,13 @@ function Login() {
           </form>
           <div className="social">
             <a href="#">
-              <i className="fab fa-facebook"></i>
+              <FontAwesomeIcon icon={faFacebook} />
             </a>
             <a href="#">
-              <i className="fab fa-twitter-square"></i>
+              <FontAwesomeIcon icon={faTwitterSquare} />
             </a>
             <a href="#">
-              <i className="fab fa-google"></i>
+              <FontAwesomeIcon icon={faGoogle} />
             </a>
           </div>
         </div>
