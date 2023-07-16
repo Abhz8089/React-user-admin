@@ -23,7 +23,7 @@ export function UserContextProvider({children}){
          .then(() => {
            setUser(null);
         
-            navigate('/login');
+            navigate('/dashboard');
          })
          .catch((error) => {
            console.log(error);
