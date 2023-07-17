@@ -6,9 +6,11 @@ const {
   registerUser,
   loginUser,
   getProfile,
-  logoutUser
+  logoutUser,
+  uploadProfilePicture,
+  handleProfilePictureUpload
 } = require("../controllers/authController");
-
+const {authenticateUser} = require('../MiddleWares/authMiddileware')
 
 
 router.get('/',test)
@@ -16,6 +18,12 @@ router.post('/register',registerUser)
 router.post('/login' , loginUser)
 router.get('/profile', getProfile)
 router.post('/logout',logoutUser)
+router.post(
+  "/upload-profile",
+  authenticateUser,uploadProfilePicture,
+  handleProfilePictureUpload
+);
+
 
 
 module.exports = router

@@ -82,3 +82,13 @@
 	font-size: small;
 	margin-left: 10px;
 }
+.images{
+	width: 60rem;
+}
+
+.row{
+	margin-top: 1rem;
+}
+.col{
+	margin-top: 1rem;
+}

@@ -1,7 +1,7 @@
 const express =require('express')
 const dotenv = require('dotenv').config()
 const cors = require('cors')
-const {mongoose} = require('mongoose')
+const mongoose = require('mongoose')
 const  cookieParser = require('cookie-parser')
 const app = express();
 
@@ -14,6 +14,9 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}))
 app.use('/' ,require('./routes/authRoutes'))
+app.use('/admin',require('./routes/adminRoutes'))
+app.use(express.static('uploads'))
+
 
 const port = 8000 ;
 

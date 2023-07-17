@@ -1,4 +1,4 @@
-import React,{useContext,useState} from "react";
+import {useContext,useEffect,useState} from "react";
 import {
   MDBCol,
   MDBContainer,
@@ -10,12 +10,53 @@ import {
   MDBTypography,
   MDBIcon,
 } from "mdb-react-ui-kit";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import {
+  faEdit,
+  faUpload,
+  
+} from "@fortawesome/free-solid-svg-icons";
 import { UserContext } from "../../context/userContext";
+import axios from 'axios'
+import "./StyleSheet/profile.css"
+import { toast } from "react-hot-toast";
 
 
 export default function PersonalProfile() {
-    const {user,seUser} = useContext(UserContext);
-    const [imageFile, setImageFile] = useState(null)
+    const {user,setUser} = useContext(UserContext);
+    const [imageFile, setImageFile] = useState(null);
+      const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setImageFile(file);
+        
+      };
+
+
+
+const handleUpload = () => {
+  const formData = new FormData();
+  formData.append("profilePicture", imageFile);
+  axios
+    .post("/upload-profile", formData)
+    .then((res) => {
+         if(res.error){toast(res.error)}else{
+          toast.success(
+            'Profile Picture uploaded'
+          )
+           const updatedUser = { ...user, image: res.data.imageUrl };
+           setUser(updatedUser);
+         }
+    }
+    )
+    .catch((err) => console.log(err));
+};
+ useEffect(() => {
+   axios
+     .get("/profile")
+     .then((res) => setUser(res.data))
+     .catch((err) => console.log(err));
+ }, []);
   return (
     <section className="vh-100" style={{ backgroundColor: "#f4f5f7" }}>
       <MDBContainer className="py-5 h-100">
@@ -31,13 +72,34 @@ export default function PersonalProfile() {
                     borderBottomLeftRadius: ".5rem",
                   }}
                 >
-                  <MDBCardImage
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                    alt="Avatar"
-                    className="my-5"
-                    style={{ width: "80px" }}
-                    fluid
-                  />
+                  {user && user.image && (
+                    <MDBCardImage
+                      src={`http://localhost:8000/${user.image}`}
+                      alt="Avatar"
+                      className="my-5"
+                      style={{ width: "80px" }}
+                      fluid
+                    />
+                  )}
+
+                  <br />
+                  {imageFile ? (
+                    <FontAwesomeIcon onClick={handleUpload} icon={faUpload} />
+                  ) : (
+                    <div className="custom-file-input">
+                      <input
+                        type="file"
+                        name="profilePicture"
+                        id="fileInput"
+                        onChange={handleFileChange}
+                      />
+                      <label htmlFor="fileInput" className="edit-icon">
+                        <FontAwesomeIcon icon={faEdit} />
+                      </label>
+                    </div>
+                  )}
+                
+
                   <MDBTypography tag="h5">
                     {user ? user.name : "Marie Horwitz"}
                   </MDBTypography>
@@ -66,3 +128,7 @@ export default function PersonalProfile() {
     </section>
   );
 }
+
+
+
+

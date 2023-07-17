@@ -5,6 +5,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashoard from "./pages/Dashboard";
 import ProfilePage from "./pages/ProfilePage";
+import AdminLogin from "./pages/Admin/AdminLogin"
+import AdminHome from "./pages/Admin/AdminHome"
 import axios from "axios";
 import {Toaster} from 'react-hot-toast';
 import {  UserContextProvider} from "../context/userContext";
@@ -28,6 +30,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashoard />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/adminHome" element={<AdminHome />} />
       </Routes>
     </UserContextProvider>
   );
